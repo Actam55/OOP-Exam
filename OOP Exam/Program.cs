@@ -1,4 +1,5 @@
 ﻿using System;
+using OOP_Exam.Models;
 
 namespace OOP_Exam
 {
@@ -6,7 +7,11 @@ namespace OOP_Exam
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Let's ace this exam, let's fucking goooooo!!!");
+
+            User lars = new(1, "Lars", "Hansen", "Actam");
+
+            Console.WriteLine(lars.Username);
         }
     }
 }
