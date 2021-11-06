@@ -9,9 +9,11 @@ namespace OOP_Exam
         {
             Console.WriteLine("Let's ace this exam, let's fucking goooooo!!!");
 
-            User lars = new(1, "Lars", "Hansen", "Actam");
+            User lars = new("Lars", "Hansen", "l.1999@hotmail.dk", 100m);
+            User pog = new("Pog", "champ", "Pog@chat.chimp", 10000m);
 
-            Console.WriteLine(lars.Username);
+            Console.WriteLine("Lars:" + lars.ID);
+            Console.WriteLine("Pog:" + pog.ID);
         }
     }
 }
