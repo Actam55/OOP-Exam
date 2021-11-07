@@ -10,12 +10,16 @@ namespace OOP_Exam.Models
     {
         public InsertCashTransaction(User user, decimal amount) : base(user, amount)
         {
-
         }
 
         public override void Execute()
         {
-            //Add amount to users balance
+            User.Balance += Amount;
+        }
+
+        public override string ToString()
+        {
+            return $"Type of transaction: Deposit, Amount: {Amount}, User: {User.FirstName} {User.LastName}, Date: {Date}, ID: {ID}";
         }
     }
 }

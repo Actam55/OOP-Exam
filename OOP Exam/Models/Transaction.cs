@@ -14,6 +14,7 @@ namespace OOP_Exam.Models
             _nextID++;
             Date = DateTime.Now;
             Amount = amount;
+            User = user;
         }
 
         private static int _nextID = 1;
