@@ -10,13 +10,7 @@ namespace OOP_Exam.Models
     public class User : IComparable
     {
         private static int _nextID = 1;
-        public int ID
-        {
-            get
-            {
-                return _id;
-            }
-        }
+        public int ID { get; }
         public string FirstName
         {
             get
@@ -47,7 +41,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                if (Regex.IsMatch(value, @"^[a-zA-Z0-9_]+$"))
+                if (Regex.IsMatch(value, @"^[a-z0-9_]+$"))
                 {
                     _userName = value;
                 }
@@ -68,7 +62,7 @@ namespace OOP_Exam.Models
             }
         } 
 
-        private int _id;
+        //private int _id;
         private string _firstName;
         private string _lastName;
         private string _userName;
@@ -77,32 +71,33 @@ namespace OOP_Exam.Models
 
         public User(string firstName, string lastName, string email, decimal balance)
         {
-            _id = _nextID;
+            ID = _nextID;
             _nextID++;
-            _firstName = firstName;
-            _lastName = lastName;
-            _email = email;
-            _balance = balance;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Balance = balance;
         }
 
         public override string ToString()
         {
-            return $"{_userName} {_lastName} {_email}";
+            return $"{FirstName} {LastName} {Email}";
+        }
+
+        public int CompareTo(object obj)
+        {
+            User user = obj as User;
+            if (ID < user.ID)
+                return 1;
+            else if (ID > user.ID)
+                return -1;
+            else
+                return 0;
         }
 
         //public int CompareTo(object obj)
         //{
-        //    if (this.ID < obj.)
-        //        return 1;
-        //    else if (this.ID > obj.ID)
-        //        return -1;
-        //    else
-        //        return 0;
+        //    return obj is User user ? ID.CompareTo(user.ID) : 1; //Daniel!!!!! It work by why?! I kinda understand
         //}
-
-        public int CompareTo(object obj)
-        {
-            return obj is User user ? ID.CompareTo(user.ID) : 1; //Daniel!!!!! It work by why?! I kinda understand
-        }
     }
 }

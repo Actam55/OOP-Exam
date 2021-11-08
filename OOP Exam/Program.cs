@@ -26,6 +26,7 @@ namespace OOP_Exam
 
             list.Sort();
             list.ForEach(User => Console.WriteLine(User.FirstName));
+            Console.WriteLine(lars);
         }
     }
 }
