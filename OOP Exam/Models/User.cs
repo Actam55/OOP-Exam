@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +42,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                if (Regex.IsMatch(value, @"^[a-z0-9_]+$"))
+                if (Regex.IsMatch(value, @"^[a-zA-Z0-9_]+$"))
                 {
                     _userName = value;
                 }
@@ -50,7 +51,7 @@ namespace OOP_Exam.Models
             }
         }
         public string Email { get; set; } //Find proper regex or write method for email check
-        public decimal Balance //Alert user when they broke
+        public decimal Balance
         {
             get
             {
@@ -62,26 +63,29 @@ namespace OOP_Exam.Models
             }
         } 
 
-        //private int _id;
+
         private string _firstName;
         private string _lastName;
         private string _userName;
         private string _email;
         private decimal _balance;
+        
+        public delegate void UserBalanceNotification(User user, decimal balance);
 
-        public User(string firstName, string lastName, string email, decimal balance)
+        public User(string firstName, string lastName,string username, string email, decimal balance)
         {
             ID = _nextID;
             _nextID++;
             FirstName = firstName;
             LastName = lastName;
+            Username = username;
             Email = email;
             Balance = balance;
         }
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName} {Email}";
+            return $"Name: {FirstName + ' ' + LastName, -20} Email: {Email, -20}";
         }
 
         public int CompareTo(object obj)
@@ -95,9 +99,14 @@ namespace OOP_Exam.Models
                 return 0;
         }
 
-        //public int CompareTo(object obj)
-        //{
-        //    return obj is User user ? ID.CompareTo(user.ID) : 1; //Daniel!!!!! It work by why?! I kinda understand
-        //}
+        public override bool Equals(object obj)
+        {
+            return obj is User user && Username == user.Username;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Username);
+        }
     }
 }
