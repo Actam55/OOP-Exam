@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +78,19 @@ namespace OOP_Exam.Models
                 }
             }
             return list;
+        }
+
+        private static List<User> UsersFromCvsFile()
+        {
+            List<User> usersList = new();
+            string[] cvsUserLines = File.ReadAllLines(@"..\..\..\Data\users.csv");
+
+            for (int i = 1; i < cvsUserLines.Length; i++)
+            {
+                string[] userData = cvsUserLines[i].Split(',');
+                User user = new User(userData[1], userData[2], userData[3], Convert.ToDecimal(userData[4]), userData[5]);
+            }
+            return usersList;
         }
     }
 }

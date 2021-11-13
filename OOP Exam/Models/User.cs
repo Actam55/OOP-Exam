@@ -42,7 +42,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                if (Regex.IsMatch(value, @"^[a-zA-Z0-9_]+$"))
+                if (Regex.IsMatch(value, @"^[a-z0-9_]+$"))
                 {
                     _userName = value;
                 }
@@ -72,7 +72,7 @@ namespace OOP_Exam.Models
         
         public delegate void UserBalanceNotification(User user, decimal balance);
 
-        public User(string firstName, string lastName,string username, string email, decimal balance)
+        public User(string firstName, string lastName,string username, decimal balance, string email)
         {
             ID = _nextID;
             _nextID++;
@@ -107,6 +107,6 @@ namespace OOP_Exam.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(Username);
-        }
+        } 
     }
 }
