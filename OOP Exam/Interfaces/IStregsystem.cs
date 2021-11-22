@@ -23,7 +23,7 @@ namespace OOP_Exam.Interfaces
                                                 //om bruger og beskrivende besked.
         IEnumerable<Transaction> GetTransactions(User user, int count); //Finder et angivet (via parameter) antal transaktioner relateret til en given specifik bruger.
                                                                         //Det er de nyeste transaktioner der findes.
-        IEnumerable<Product> ActiveProducts { get; } //aktive produkter i stregsystemet på nuværende tidspunkt
+        IEnumerable<Product> ActiveProducts(); //aktive produkter i stregsystemet på nuværende tidspunkt
         
         event UserBalanceNotification UserBalanceWarning;
     }

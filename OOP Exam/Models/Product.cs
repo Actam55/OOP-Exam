@@ -10,7 +10,7 @@ namespace OOP_Exam.Models
     {
         private static int _nextID = 1;
 
-        public int ID
+        public int ID //Id need to be handled in a way so all id's are unique
         {
             get
             {
