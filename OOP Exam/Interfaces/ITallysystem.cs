@@ -8,7 +8,7 @@ using static OOP_Exam.Models.User;
 
 namespace OOP_Exam.Interfaces
 {
-    interface IStregsystem
+    interface ITallysystem
     {
         BuyTransaction BuyProduct(User user, Product product); //udfører den logik der køber et produkt på en brugers konto, ved brug af en transaktion
         InsertCashTransaction AddCreditsToAccount(User user, decimal amount); //indsætter et beløb på en brugers konto, via en transaktion.

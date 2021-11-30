@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OOP_Exam.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace OOP_Exam.Models
 {
-    class Stregsystem : IStregsystem
+    class TallySystem : ITallysystem
     {
         private List<User> _users = UsersFromCvsFile();//En liste af brugere som nok skal hentes fra vores fil
         private List<Product> _products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
@@ -66,7 +67,7 @@ namespace OOP_Exam.Models
         {
             foreach (Product product in Products)
             {
-                if (product.ID == id)
+                if (product.Id == id)
                 {
                     return product;
                 }
@@ -93,7 +94,14 @@ namespace OOP_Exam.Models
 
         public User GetUserByUsername(string username)
         {
-            throw new NotImplementedException();
+            foreach (User user in Users)
+            {
+                if (user.Username == username)
+                {
+                    return user;
+                }
+            }
+            throw new Exception("Username does not exist. Please try again with new username"); //Skal muligvis ikke throw
         }
 
         public IEnumerable<User> GetUsers(Func<User, bool> predicate) //Vi tjekker for hver bruger i vores liste om de opfylder predicate, og returnere alle der gør
@@ -123,7 +131,7 @@ namespace OOP_Exam.Models
             return usersList;
         }
 
-        public static List<Product> ProductsFromCvsFile()
+        public static List<Product> ProductsFromCvsFile() //Procudt name is a little confusing
         {
             List<Product> productList = new();
             string[] cvsProductLines = File.ReadAllLines(@"..\..\..\Data\products.csv");
@@ -132,10 +140,16 @@ namespace OOP_Exam.Models
             {
                 string[] productData = cvsProductLines[i].Split(';');
                 bool isActive = (Convert.ToInt32(productData[3]) == 1); // sætter en string "1" eller "0" til true eller false
-                Product product = new Product(productData[1], Convert.ToDecimal(productData[2]), isActive, false); //Check false om det er nødvendigt eller skal fjernes fra constructor
+                Product product = new Product(StripHTML(productData[1]).Trim(new char[] {'"'}), Convert.ToDecimal(productData[2]), isActive, false, Convert.ToInt32(productData[0])); //Check false om det er nødvendigt eller skal fjernes fra constructor
                 productList.Add(product);
             }
             return productList;
+        }
+        static string StripHTML(string inputString) //Using regex to remove all HTML tags
+        {
+            string HTML_TAG_PATTERN = "<.*?>";
+            return Regex.Replace
+              (inputString, HTML_TAG_PATTERN, string.Empty);
         }
     }
 }

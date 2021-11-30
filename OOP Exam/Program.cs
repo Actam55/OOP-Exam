@@ -1,4 +1,5 @@
 ﻿using OOP_Exam.Models;
+using OOP_Exam.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,11 +16,18 @@ namespace OOP_Exam
     {
         static void Main(string[] args)
         {
-            List<Product> users = Stregsystem.ProductsFromCvsFile();
-            foreach (Product product in users)
-            {
-                Console.WriteLine(product.ID);
-            }
+            //List<Product> products = TallySystem.ProductsFromCvsFile();
+            //Product lajs = new("lajs", 5, true, true);
+            //products.Add(lajs);
+            //foreach (Product product in products)
+            //{
+            //    Console.WriteLine(product);
+            //}
+
+            ITallysystem tallysystem = new TallySystem();
+            ITallysystemUI ui = new TallySystemCLI(tallysystem);
+
+            ui.Start();
         }
     }
 }

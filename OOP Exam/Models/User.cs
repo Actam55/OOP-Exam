@@ -11,7 +11,7 @@ namespace OOP_Exam.Models
     public class User : IComparable
     {
         private static int _nextID = 1;
-        public int ID { get; }
+        public int Id { get; set; }
         public string FirstName
         {
             get
@@ -74,8 +74,18 @@ namespace OOP_Exam.Models
 
         public User(string firstName, string lastName,string username, decimal balance, string email)
         {
-            ID = _nextID;
+            Id = _nextID;
             _nextID++;
+            FirstName = firstName;
+            LastName = lastName;
+            Username = username;
+            Email = email;
+            Balance = balance;
+        }
+
+        public User(string firstName, string lastName, string username, decimal balance, string email, int id)
+        {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             Username = username;
@@ -91,9 +101,9 @@ namespace OOP_Exam.Models
         public int CompareTo(object obj)
         {
             User user = obj as User;
-            if (ID < user.ID)
+            if (Id < user.Id)
                 return 1;
-            else if (ID > user.ID)
+            else if (Id > user.Id)
                 return -1;
             else
                 return 0;
