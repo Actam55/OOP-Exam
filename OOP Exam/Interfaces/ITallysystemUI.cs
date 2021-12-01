@@ -7,7 +7,7 @@ using OOP_Exam.Models;
 
 namespace OOP_Exam.Interfaces
 {
-    interface ITallysystemUI
+    public interface ITallysystemUI
     {
         void DisplayUserNotFound(string username);
         void DisplayProductNotFound(string product);

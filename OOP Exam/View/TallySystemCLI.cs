@@ -7,7 +7,7 @@ using OOP_Exam.Interfaces;
 
 namespace OOP_Exam.Models
 {
-    internal class TallySystemCLI : ITallysystemUI
+    public class TallySystemCLI : ITallysystemUI
     {
         public ITallysystem TallySystem { get; set; }
 
@@ -22,17 +22,17 @@ namespace OOP_Exam.Models
 
         public void DisplayAdminCommandNotFoundMessage(string adminCommand)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Admin command {adminCommand}, was not recognized");
         }
 
         public void DisplayGeneralError(string errorString)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(errorString);
         }
 
         public void DisplayInsufficientCash(User user, Product product)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Insuficcient balance on account. Current balance is: {user.Balance}. Cost of product is: {product.Price}");
         }
 
         public void DisplayProductNotFound(string product)
@@ -42,17 +42,20 @@ namespace OOP_Exam.Models
 
         public void DisplayTooManyArgumentsError(string command)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Command {command} contains too many arguments");
         }
 
         public void DisplayUserBuysProduct(BuyTransaction transaction)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{transaction.Product} has been purchased.");
         }
 
         public void DisplayUserBuysProduct(int count, BuyTransaction transaction)
         {
-            throw new NotImplementedException();
+            if (count > 1)
+                Console.WriteLine($"{count}{transaction.Product}'s have been purchased.");
+            else
+                Console.WriteLine($"{transaction.Product} has been purchased.");
         }
 
         public void DisplayUserInfo(User user)

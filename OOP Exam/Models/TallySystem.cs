@@ -10,29 +10,23 @@ using System.Text.RegularExpressions;
 
 namespace OOP_Exam.Models
 {
-    class TallySystem : ITallysystem
+    public class TallySystem : ITallysystem
     {
-        private List<User> _users = UsersFromCvsFile();//En liste af brugere som nok skal hentes fra vores fil
-        private List<Product> _products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
-        List<Transaction> transactions; //En liste af transaktioner, ved ej om det er alle eller kun for en specifik bruger
-        
-        
-        
         public List<User> Users
-        {
+        {    //En liste af brugere som nok skal hentes fra vores fil
             get
             {
-                return _users;
+                return Users;
             }
-        }
-        public List<Product> Products
-        {
-            get
+            set
             {
-                return _products;
+                Users = UsersFromCvsFile();
             }
         }
-        
+        public List<Product> Products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
+        List<Transaction> transactions = new List<Transaction>(); //En liste af alle transaktioner
+
+
         public IEnumerable<Product> ActiveProducts()
         {
             List<Product> list = new();
@@ -58,9 +52,10 @@ namespace OOP_Exam.Models
             return new BuyTransaction(user, product);
         }
 
-        public void ExecuteTransaction(Transaction transaction)
+        public void ExecuteTransaction(Transaction transaction) //Jeg ved ikke helt hvad den her skal
         {
-            ExecuteTransaction(transaction);
+            transactions.Add(transaction);
+            transaction.Execute();
         }
 
         public Product GetProductByID(int id)
@@ -125,7 +120,7 @@ namespace OOP_Exam.Models
             for (int i = 1; i < cvsUserLines.Length; i++)
             {
                 string[] userData = cvsUserLines[i].Split(',');
-                User user = new User(userData[1], userData[2], userData[3], Convert.ToDecimal(userData[4]), userData[5]); //Skal tilpasses
+                User user = new User(userData[1], userData[2], userData[3], Convert.ToDecimal(userData[4]), userData[5], Convert.ToInt32(userData[0])); //Skal tilpasses
                 usersList.Add(user);
             }
             return usersList;
@@ -140,7 +135,7 @@ namespace OOP_Exam.Models
             {
                 string[] productData = cvsProductLines[i].Split(';');
                 bool isActive = (Convert.ToInt32(productData[3]) == 1); // sætter en string "1" eller "0" til true eller false
-                Product product = new Product(StripHTML(productData[1]).Trim(new char[] {'"'}), Convert.ToDecimal(productData[2]), isActive, false, Convert.ToInt32(productData[0])); //Check false om det er nødvendigt eller skal fjernes fra constructor
+                Product product = new Product(StripHTML(productData[1]).Trim(new char[] { '"' }), Convert.ToDecimal(productData[2]), isActive, false, Convert.ToInt32(productData[0])); //Check false om det er nødvendigt eller skal fjernes fra constructor
                 productList.Add(product);
             }
             return productList;

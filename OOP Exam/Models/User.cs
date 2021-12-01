@@ -10,7 +10,7 @@ namespace OOP_Exam.Models
 {
     public class User : IComparable
     {
-        private static int _nextID = 1;
+        private static int _nextID = 12; //skal måske ændres for at blive mere dynamisk
         public int Id { get; set; }
         public string FirstName
         {
@@ -20,7 +20,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                _firstName = value ?? "";
+                _firstName = value ?? ""; //Måske giv et default navn som "Default firstname"
             }
         }
         public string LastName
@@ -31,7 +31,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                _lastName = value ?? "";
+                _lastName = value ?? "";//Måske giv et default navn som "Default lastname"
             }
         }
         public string Username
@@ -47,10 +47,20 @@ namespace OOP_Exam.Models
                     _userName = value;
                 }
                 else
-                    throw new ArgumentException("Give proper username >:(");
+                    throw new ArgumentException("Username is not valid");
             }
         }
-        public string Email { get; set; } //Find proper regex or write method for email check
+        public string Email     //Find proper regex or write method for email check
+        {
+            get
+            {
+                return Email;
+            }
+            set
+            {
+                
+            }
+        } 
         public decimal Balance
         {
             get
@@ -61,7 +71,7 @@ namespace OOP_Exam.Models
             {
                 _balance = value;
             }
-        } 
+        }
 
 
         private string _firstName;
@@ -69,10 +79,10 @@ namespace OOP_Exam.Models
         private string _userName;
         private string _email;
         private decimal _balance;
-        
+
         public delegate void UserBalanceNotification(User user, decimal balance);
 
-        public User(string firstName, string lastName,string username, decimal balance, string email)
+        public User(string firstName, string lastName, string username, decimal balance, string email)
         {
             Id = _nextID;
             _nextID++;
@@ -95,7 +105,7 @@ namespace OOP_Exam.Models
 
         public override string ToString()
         {
-            return $"Name: {FirstName + ' ' + LastName, -20} Email: {Email, -20}";
+            return $"Name: {FirstName + ' ' + LastName,-20} Email: {Email,-20}";
         }
 
         public int CompareTo(object obj)
@@ -117,6 +127,6 @@ namespace OOP_Exam.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(Username);
-        } 
+        }
     }
 }

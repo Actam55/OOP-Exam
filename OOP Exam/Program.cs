@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+//using OOP_Exam.Controller;
 
 namespace OOP_Exam
 {
@@ -24,10 +25,47 @@ namespace OOP_Exam
             //    Console.WriteLine(product);
             //}
 
-            ITallysystem tallysystem = new TallySystem();
-            ITallysystemUI ui = new TallySystemCLI(tallysystem);
+            //ITallysystem tallysystem = new TallySystem();
+            //ITallysystemUI ui = new TallySystemCLI(tallysystem);
+            //TallysystemController sc = new TallysystemController(ui, tallysystem);
+            //
+            //ui.Start();
 
-            ui.Start();
+            string FinalMail = "";
+            string mail = "l.1999   @hotmail.dk";
+            int count = 0;
+
+            foreach (char charecter in mail)
+            {
+                if (charecter == '@')
+                {
+                    count++;
+                }
+            }
+            if (count != 1)
+            {
+                Console.WriteLine("Invalid mail");
+            }
+            else
+            {
+                string[] substrings = mail.Split('@');
+                string localPart = substrings[0];
+                string domain = substrings[1];
+
+                if (!Regex.IsMatch(localPart, @"^[a-z0-9.]+$"))
+                {
+                    Console.WriteLine("Local part is invalid");
+                }
+                else if (!Regex.IsMatch(domain, @"^[a-zA-Z0-9-.]") && !domain.Contains(".") && domain.EndsWith(".") && domain.StartsWith(".") && domain.EndsWith("-") && domain.StartsWith("-"))
+                {
+                    Console.WriteLine("Domain is invalid");
+                }
+                else
+                {
+                    FinalMail = mail;
+                }
+            }
+                Console.WriteLine(FinalMail);
         }
     }
 }

@@ -7,7 +7,7 @@ using OOP_Exam.Exceptions;
 
 namespace OOP_Exam.Models
 {
-    class BuyTransaction : Transaction
+    public class BuyTransaction : Transaction
     {
         public BuyTransaction(User user, Product product) : base(user, product.Price)
         {
