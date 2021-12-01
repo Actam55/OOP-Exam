@@ -31,8 +31,8 @@ namespace OOP_Exam
             //
             //ui.Start();
 
-            string FinalMail = "";
-            string mail = "l.1999   @hotmail.dk";
+            string FinalMail = "Nope";
+            string mail = "eksempel@domain.dk";
             int count = 0;
 
             foreach (char charecter in mail)
@@ -52,11 +52,14 @@ namespace OOP_Exam
                 string localPart = substrings[0];
                 string domain = substrings[1];
 
-                if (!Regex.IsMatch(localPart, @"^[a-z0-9.]+$"))
+                Console.WriteLine($"Local: {localPart}");
+                Console.WriteLine($"Domain: {domain}\n");
+
+                if (!Regex.IsMatch(localPart, @"^[a-zA-Z0-9_.-]+$"))
                 {
-                    Console.WriteLine("Local part is invalid");
+                    Console.WriteLine("Local is invalid");
                 }
-                else if (!Regex.IsMatch(domain, @"^[a-zA-Z0-9-.]") && !domain.Contains(".") && domain.EndsWith(".") && domain.StartsWith(".") && domain.EndsWith("-") && domain.StartsWith("-"))
+                if (!Regex.IsMatch(domain, @"^[a-zA-Z0-9-.]") || !domain.Contains(".") || domain.EndsWith(".") || domain.StartsWith(".") || domain.EndsWith("-") || domain.StartsWith("-"))
                 {
                     Console.WriteLine("Domain is invalid");
                 }
@@ -69,3 +72,5 @@ namespace OOP_Exam
         }
     }
 }
+
+//!Regex.IsMatch(domain, @"^[a-zA-Z0-9-.]") && !domain.Contains(".") && domain.EndsWith(".") && domain.StartsWith(".") && domain.EndsWith("-") && domain.StartsWith("-"))
