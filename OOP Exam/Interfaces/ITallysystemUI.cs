@@ -20,7 +20,6 @@ namespace OOP_Exam.Interfaces
         void DisplayInsufficientCash(User user, Product product);
         void DisplayGeneralError(string errorString);
         void Start();
-
-        //event StregsystemEvent CommandEntered; Events igen! Noget med delegates
+        event TallysystemEvent CommandEntered;
     }
 }

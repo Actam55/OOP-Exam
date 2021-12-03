@@ -10,17 +10,14 @@ using System.Text.RegularExpressions;
 
 namespace OOP_Exam.Models
 {
-    public class TallySystem : ITallysystem
+    public class Tallysystem : ITallysystem
     {
+        private List<User> _users = UsersFromCvsFile();
         public List<User> Users
         {    //En liste af brugere som nok skal hentes fra vores fil
             get
             {
-                return Users;
-            }
-            set
-            {
-                Users = UsersFromCvsFile();
+                return _users;
             }
         }
         public List<Product> Products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
@@ -91,8 +88,9 @@ namespace OOP_Exam.Models
         {
             foreach (User user in Users)
             {
-                if (user.Username == username)
+                if (user.Username.Equals(username))
                 {
+                    Console.WriteLine("Found");
                     return user;
                 }
             }

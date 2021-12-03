@@ -15,6 +15,9 @@ namespace OOP_Exam.Models
         {
             TallySystem = tallySystem;
         }
+
+        public event TallysystemEvent CommandEntered;
+
         public void Close()
         {
             Environment.Exit(0);
@@ -68,21 +71,27 @@ namespace OOP_Exam.Models
             Console.WriteLine($"User: {username} could not be found");
         }
 
-        public void Start()
+        protected virtual void OnCommandEntered(string command)
+        {
+            if (CommandEntered != null)
+            {
+                CommandEntered(command);
+            }
+        }
+
+        public void Start() //Maybe clear console before writing, so ready for new input?
         {
             DisplayUserInputField();
             DisplayProductCatalog();
-            //Console.Read();
-            //Console.CursorLeft = 3;
-            //Console.CursorTop = 3;
+            string command = Console.ReadLine();
+            OnCommandEntered(command);
         }
-
         void DisplayUserInputField()
         {
             Console.WriteLine($"Quickbuy:    \n");
         }
 
-        void DisplayProductCatalog() //Needs to be divided for better view
+        void DisplayProductCatalog()
         {
             IEnumerable<Product> products = TallySystem.ActiveProducts();
             foreach (Product product in products)

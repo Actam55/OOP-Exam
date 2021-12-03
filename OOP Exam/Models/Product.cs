@@ -66,7 +66,7 @@ namespace OOP_Exam.Models
             Id = _nextID;
             _nextID++;
             Name = name;
-            Price = price;
+            Price = price * 0.01m;
             Active = active;
             CanBeBoughtOnCredit = canBeBoughtOnCredit;
         }
@@ -75,7 +75,7 @@ namespace OOP_Exam.Models
         {
             Id = id;
             Name = name;
-            Price = price;
+            Price = price * 0.01m;
             Active = active;
             CanBeBoughtOnCredit = canBeBoughtOnCredit;
         }

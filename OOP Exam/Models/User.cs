@@ -54,13 +54,48 @@ namespace OOP_Exam.Models
         {
             get
             {
-                return Email;
+                return _email;
             }
             set
             {
-                
+                string mail = value;
+                int count = 0;
+
+                foreach (char charecter in mail)
+                {
+                    if (charecter == '@')
+                    {
+                        count++;
+                    }
+                }
+                if (count != 1)
+                {
+                    throw new Exception(""); //Lav en metode så der ikke behøves en exception
+                }
+                else
+                {
+                    string[] substrings = mail.Split('@');
+                    string localPart = substrings[0];
+                    string domain = substrings[1];
+
+                    Console.WriteLine($"Local: {localPart}");
+                    Console.WriteLine($"Domain: {domain}\n");
+
+                    if (!Regex.IsMatch(localPart, @"^[a-zA-Z0-9_.-]+$"))
+                    {
+                        throw new Exception(""); //Lav en metode så der ikke behøves en exception
+                    }
+                    else if (!Regex.IsMatch(domain, @"^[a-zA-Z0-9-.]+$") || !domain.Contains(".") || domain.EndsWith(".") || domain.StartsWith(".") || domain.EndsWith("-") || domain.StartsWith("-"))
+                    {
+                        throw new Exception(""); //Lav en metode så der ikke behøves en exception
+                    }
+                    else
+                    {
+                        _email = mail;
+                    }
+                }
             }
-        } 
+        }
         public decimal Balance
         {
             get
@@ -69,7 +104,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                _balance = value;
+                _balance = value; //Introducer delegate som opgaven siger!!!!
             }
         }
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OOP_Exam.Models;
-using static OOP_Exam.Models.User;
 
 namespace OOP_Exam.Interfaces
 {
@@ -25,6 +24,6 @@ namespace OOP_Exam.Interfaces
                                                                         //Det er de nyeste transaktioner der findes.
         IEnumerable<Product> ActiveProducts(); //aktive produkter i stregsystemet på nuværende tidspunkt
         
-        event UserBalanceNotification UserBalanceWarning;
+        event User.UserBalanceNotification UserBalanceWarning;
     }
 }
