@@ -64,7 +64,7 @@ namespace OOP_Exam.Models
                     return product;
                 }
             }
-            throw new Exception("Product does not exist. Please try again with a new product ID"); //Skal muligvis gøres mere specifik
+            return null;
         }
 
         public IEnumerable<Transaction> GetTransactions(User user, int count) //Check om den bruger listen af transaktioner korrekt. Skal tage de nyest først.
@@ -93,7 +93,7 @@ namespace OOP_Exam.Models
                     return user;
                 }
             }
-            throw new Exception("Username does not exist. Please try again with new username"); //Skal muligvis ikke throw
+            return null;
         }
 
         public IEnumerable<User> GetUsers(Func<User, bool> predicate) //Vi tjekker for hver bruger i vores liste om de opfylder predicate, og returnere alle der gør

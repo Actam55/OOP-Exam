@@ -33,14 +33,14 @@ namespace OOP_Exam.Models
             Console.WriteLine(errorString);
         }
 
-        public void DisplayInsufficientCash(User user, Product product)
+        public void DisplayInsufficientCash(User user, Product product, int amount = 1)
         {
-            Console.WriteLine($"Insuficcient balance on account. Current balance is: {user.Balance}. Cost of product is: {product.Price}");
+            Console.WriteLine($"Insuficcient balance on account. Current balance is: {user.Balance}. Cost of product is: {product.Price * amount}");
         }
 
         public void DisplayProductNotFound(string product)
         {
-            Console.WriteLine($"Product: ${product} could not be found");
+            Console.WriteLine($"A product with id: {product} could not be found");
         }
 
         public void DisplayTooManyArgumentsError(string command)
@@ -48,17 +48,17 @@ namespace OOP_Exam.Models
             Console.WriteLine($"Command {command} contains too many arguments");
         }
 
-        public void DisplayUserBuysProduct(BuyTransaction transaction)
-        {
-            Console.WriteLine($"{transaction.Product} has been purchased.");
-        }
+        //public void DisplayUserBuysProduct(BuyTransaction transaction)
+        //{
+        //    Console.WriteLine($"{transaction.Product} has been purchased.");
+        //}
 
         public void DisplayUserBuysProduct(int count, BuyTransaction transaction)
         {
             if (count > 1)
-                Console.WriteLine($"{count}{transaction.Product}'s have been purchased.");
+                Console.WriteLine($"{count} {transaction.Product.Name}'s have been purchased.");
             else
-                Console.WriteLine($"{transaction.Product} has been purchased.");
+                Console.WriteLine($"{transaction.Product.Name} has been purchased.");
         }
 
         public void DisplayUserInfo(User user)
