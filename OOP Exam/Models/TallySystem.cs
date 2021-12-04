@@ -90,7 +90,6 @@ namespace OOP_Exam.Models
             {
                 if (user.Username.Equals(username))
                 {
-                    Console.WriteLine("Found");
                     return user;
                 }
             }

@@ -78,9 +78,6 @@ namespace OOP_Exam.Models
                     string localPart = substrings[0];
                     string domain = substrings[1];
 
-                    Console.WriteLine($"Local: {localPart}");
-                    Console.WriteLine($"Domain: {domain}\n");
-
                     if (!Regex.IsMatch(localPart, @"^[a-zA-Z0-9_.-]+$"))
                     {
                         throw new Exception(""); //Lav en metode så der ikke behøves en exception
@@ -125,7 +122,7 @@ namespace OOP_Exam.Models
             LastName = lastName;
             Username = username;
             Email = email;
-            Balance = balance;
+            Balance = balance * 0.01m;
         }
 
         public User(string firstName, string lastName, string username, decimal balance, string email, int id)
@@ -135,7 +132,7 @@ namespace OOP_Exam.Models
             LastName = lastName;
             Username = username;
             Email = email;
-            Balance = balance;
+            Balance = balance * 0.01m;
         }
 
         public override string ToString()

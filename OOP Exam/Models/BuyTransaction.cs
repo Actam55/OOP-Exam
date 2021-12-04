@@ -11,6 +11,7 @@ namespace OOP_Exam.Models
     {
         public BuyTransaction(User user, Product product) : base(user, product.Price)
         {
+            Product = product;
         }
         public Product Product { get; }
         //public decimal Amount { get; set; } I'm not sure what he want's here

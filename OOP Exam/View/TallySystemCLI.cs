@@ -81,10 +81,17 @@ namespace OOP_Exam.Models
 
         public void Start() //Maybe clear console before writing, so ready for new input?
         {
+            DisplayUI();
+            while (true)
+            {
+                string command = Console.ReadLine();
+                OnCommandEntered(command);
+            }
+        }
+        void DisplayUI()
+        {
             DisplayUserInputField();
             DisplayProductCatalog();
-            string command = Console.ReadLine();
-            OnCommandEntered(command);
         }
         void DisplayUserInputField()
         {
