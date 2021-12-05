@@ -34,14 +34,17 @@ namespace OOP_Exam.Controller
                             Ui.Close();
                             break;
                         case ":activate":
+                            ActivateProduct(commands[1]);
                             break;
                         case ":deactivate":
+                            DeactivateProduct(commands[1]);
                             break;
                         case ":crediton":
                             break;
                         case ":creditoff":
                             break;
                         case ":addcredits":
+                            AddCreditsToUser(commands[1], commands[2]);
                             break;
                         default:
                             Ui.DisplayAdminCommandNotFoundMessage(commands[0]);
@@ -126,25 +129,97 @@ namespace OOP_Exam.Controller
                 }
             }
         }
-        //private void MultiBuyCommand(string username, string amountString, string productIdString) //To buy multiple products
-        //{
-        //    bool success = int.TryParse(amountString, out int amount); //Tries to parse to int, if it can success == true
-        //    if (!success)
-        //    {
-        //        throw new Exception("");
-        //    }
-        //    else
-        //    {
-        //        for (int i = 0; i < amount; i++)
-        //        {
-        //            BuyCommand(username, productIdString);
-        //        }
-        //    }
-        //}
-        //private void DisplayInvalidInputCommand(string invalidString)
-        //{
-        //    Ui.DisplayTooManyArgumentsError(invalidString);
-        //}
+        private void ActivateProduct(string productIdString)
+        {
+            bool idSuccess = int.TryParse(productIdString, out int productId); //Tries to parse to int, if it can success == true
+            if (idSuccess)
+            {
+                Product product = Tallysystem.GetProductByID(productId);
+                if (product is SeasonalProduct)
+                {
+                    Ui.DisplayGeneralError("Cannot change active status of seasonal product");
+                }
+                else
+                {
+                    if (product != null)
+                    {
+                        product.Active = true;
+                        Console.Clear();
+                        Ui.Start();
+                    }
+                    else
+                    {
+                        Ui.DisplayProductNotFound(productIdString);
+                    }
+                }
+            }
+            else
+            {
+                Ui.DisplayProductNotFound(productIdString);
+            }
+        }
+        private void DeactivateProduct(string productIdString)
+        {
+            bool idSuccess = int.TryParse(productIdString, out int productId); //Tries to parse to int, if it can success == true
+            if (idSuccess)
+            {
+                Product product = Tallysystem.GetProductByID(productId);
+                if (product != null)
+                {
+                    product.Active = false;
+                    Console.Clear();
+                    Ui.Start();
+                }
+                else
+                {
+                    Ui.DisplayProductNotFound(productIdString);
+                }
+            }
+            else
+            {
+                Ui.DisplayProductNotFound(productIdString);
+            }
+        }
+        private void AddCreditsToUser(string username, string creditsToAdd)
+        {
+            bool creditSuccess = int.TryParse(creditsToAdd, out int credits);
+            User user = Tallysystem.GetUserByUsername(username);
+            if (user != null)
+            {
+                if (!creditSuccess)
+                {
+                    Ui.DisplayGeneralError($"{creditsToAdd} is not a valid amount of credits to add");
+                }
+                else
+                {
+                    user.Balance += credits;
+                }
+            }
+            else
+            {
+                Ui.DisplayUserNotFound(username);
+            }
+        }
     }
 }
 //Måske funktioner til hver type af kommando, som køb(bruger, produktId, mængde = 1);
+
+//private void MultiBuyCommand(string username, string amountString, string productIdString) //To buy multiple products
+//{
+//    bool success = int.TryParse(amountString, out int amount); //Tries to parse to int, if it can success == true
+//    if (!success)
+//    {
+//        throw new Exception("");
+//    }
+//    else
+//    {
+//        for (int i = 0; i < amount; i++)
+//        {
+//            BuyCommand(username, productIdString);
+//        }
+//    }
+//}
+//private void DisplayInvalidInputCommand(string invalidString)
+//{
+//    Ui.DisplayTooManyArgumentsError(invalidString);
+//}
