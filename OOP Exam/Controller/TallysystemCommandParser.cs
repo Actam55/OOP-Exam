@@ -34,14 +34,16 @@ namespace OOP_Exam.Controller
                             Ui.Close();
                             break;
                         case ":activate":
-                            ActivateProduct(commands[1]);
+                            SetProductActivateStatus(commands[1], true);
                             break;
                         case ":deactivate":
-                            DeactivateProduct(commands[1]);
+                            SetProductActivateStatus(commands[1], false);
                             break;
                         case ":crediton":
+                            SetCreditStatus(commands[1], true);
                             break;
                         case ":creditoff":
+                            SetCreditStatus(commands[1], false);
                             break;
                         case ":addcredits":
                             AddCreditsToUser(commands[1], commands[2]);
@@ -129,7 +131,7 @@ namespace OOP_Exam.Controller
                 }
             }
         }
-        private void ActivateProduct(string productIdString)
+        private void SetProductActivateStatus(string productIdString, bool boolValue)
         {
             bool idSuccess = int.TryParse(productIdString, out int productId); //Tries to parse to int, if it can success == true
             if (idSuccess)
@@ -139,34 +141,9 @@ namespace OOP_Exam.Controller
                 {
                     Ui.DisplayGeneralError("Cannot change active status of seasonal product");
                 }
-                else
+                else if (product != null)
                 {
-                    if (product != null)
-                    {
-                        product.Active = true;
-                        Console.Clear();
-                        Ui.Start();
-                    }
-                    else
-                    {
-                        Ui.DisplayProductNotFound(productIdString);
-                    }
-                }
-            }
-            else
-            {
-                Ui.DisplayProductNotFound(productIdString);
-            }
-        }
-        private void DeactivateProduct(string productIdString)
-        {
-            bool idSuccess = int.TryParse(productIdString, out int productId); //Tries to parse to int, if it can success == true
-            if (idSuccess)
-            {
-                Product product = Tallysystem.GetProductByID(productId);
-                if (product != null)
-                {
-                    product.Active = false;
+                    product.Active = boolValue;
                     Console.Clear();
                     Ui.Start();
                 }
@@ -198,6 +175,43 @@ namespace OOP_Exam.Controller
             else
             {
                 Ui.DisplayUserNotFound(username);
+            }
+        }
+        private void SetCreditStatus(string productIdString, bool boolValue)
+        {
+            bool idSuccess = int.TryParse(productIdString, out int productId);
+            if (idSuccess != false)
+            {
+                Product product = Tallysystem.GetProductByID(productId);
+                if (product != null)
+                {
+                    product.CanBeBoughtOnCredit = boolValue;
+                    Console.Clear();
+                    Ui.Start();
+                }
+                else
+                {
+                    Ui.DisplayProductNotFound(productIdString);
+                }
+            }
+            else
+            {
+                Ui.DisplayProductNotFound(productIdString);
+            }
+        }
+
+        //Helper functions
+        private int? GetProductIdFromString(string productIdString)
+        {
+            bool idSuccess = int.TryParse(productIdString, out int productId);
+            if (idSuccess)
+            {
+                return productId;
+            }
+            else
+            {
+                Ui.DisplayProductNotFound($"No product with ID: {productIdString} was found");
+                return null;
             }
         }
     }

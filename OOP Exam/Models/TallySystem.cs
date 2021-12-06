@@ -13,6 +13,8 @@ namespace OOP_Exam.Models
     public class Tallysystem : ITallysystem
     {
         private List<User> _users = UsersFromCvsFile();
+        public List<Product> _products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
+        List<Transaction> transactions = new List<Transaction>(); //En liste af alle transaktioner
         public List<User> Users
         {    //En liste af brugere som nok skal hentes fra vores fil
             get
@@ -20,14 +22,18 @@ namespace OOP_Exam.Models
                 return _users;
             }
         }
-        public List<Product> Products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
-        List<Transaction> transactions = new List<Transaction>(); //En liste af alle transaktioner
-
-
+        public List<Product> Products
+        {
+            get
+            {
+                return _products;
+            }
+        }
+        public int MyProperty { get; set; }
         public IEnumerable<Product> ActiveProducts()
         {
             List<Product> list = new();
-            foreach (Product product in Products)
+            foreach (Product product in _products)
             {
                 if (product.Active == true)
                 {
@@ -37,7 +43,7 @@ namespace OOP_Exam.Models
             return list;
         }
 
-        public event User.UserBalanceNotification UserBalanceWarning;
+        public event User.UserBalanceNotification UserBalanceWarning; //Missing
 
         public InsertCashTransaction AddCreditsToAccount(User user, decimal amount)
         {
@@ -57,7 +63,7 @@ namespace OOP_Exam.Models
 
         public Product GetProductByID(int id)
         {
-            foreach (Product product in Products)
+            foreach (Product product in _products)
             {
                 if (product.Id == id)
                 {

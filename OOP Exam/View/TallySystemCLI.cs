@@ -38,9 +38,9 @@ namespace OOP_Exam.Models
             Console.WriteLine($"Insuficcient balance on account. Current balance is: {user.Balance}. Cost of product is: {product.Price * amount}");
         }
 
-        public void DisplayProductNotFound(string product)
+        public void DisplayProductNotFound(string productId)
         {
-            Console.WriteLine($"A product with id: {product} could not be found");
+            Console.WriteLine($"A product with id: {productId} could not be found");
         }
 
         public void DisplayTooManyArgumentsError(string command)
