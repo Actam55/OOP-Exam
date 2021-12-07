@@ -101,6 +101,10 @@ namespace OOP_Exam.Models
             }
             set
             {
+                if (_balance < 50)
+                {
+                    
+                }
                 _balance = value; //Introducer delegate som opgaven siger!!!!
             }
         }
@@ -135,6 +139,8 @@ namespace OOP_Exam.Models
             Balance = balance * 0.01m;
         }
 
+
+        
         public override string ToString()
         {
             return $"Name: {FirstName + ' ' + LastName,-20} Email: {Email,-20}";

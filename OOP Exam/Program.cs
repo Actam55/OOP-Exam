@@ -18,10 +18,10 @@ namespace OOP_Exam
     {
         static void Main(string[] args)
         {
-            SeasonalProduct sProduct = new SeasonalProduct("Seasonla product", 100, true, new DateTime(2022, 1, 1), new DateTime(2022, 1, 1));
+            Product sProduct = new SeasonalProduct("Seasonla product", 100, true, new DateTime(2021, 1, 1), new DateTime(2022, 1, 1));
             
-            Tallysystem tallysystem = new Tallysystem();
-            TallySystemCLI ui = new TallySystemCLI(tallysystem); //publisher
+            ITallysystem tallysystem = new Tallysystem();
+            ITallysystemUI ui = new TallySystemCLI(tallysystem); //publisher
             TallysystemController sc = new TallysystemController(ui, tallysystem); //Listener
 
             tallysystem.Products.Add(sProduct);

@@ -16,7 +16,7 @@ namespace OOP_Exam.Models
         public List<Product> _products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
         List<Transaction> transactions = new List<Transaction>(); //En liste af alle transaktioner
         public List<User> Users
-        {    //En liste af brugere som nok skal hentes fra vores fil
+        {
             get
             {
                 return _users;
@@ -45,6 +45,14 @@ namespace OOP_Exam.Models
 
         public event User.UserBalanceNotification UserBalanceWarning; //Missing
 
+        public void OnBalanceUnder50(User user)
+        {
+            if (UserBalanceWarning != null)
+            {
+                UserBalanceWarning(user, user.Balance);
+            }
+        }
+
         public InsertCashTransaction AddCreditsToAccount(User user, decimal amount)
         {
             return new InsertCashTransaction(user, amount);
@@ -55,10 +63,19 @@ namespace OOP_Exam.Models
             return new BuyTransaction(user, product);
         }
 
-        public void ExecuteTransaction(Transaction transaction) //Jeg ved ikke helt hvad den her skal
+        public void ExecuteTransaction(Transaction transaction)
         {
             transactions.Add(transaction);
             transaction.Execute();
+            if (transaction.User.Balance < 50)
+            {
+                OnBalanceUnder50(transaction.User);
+            }
+        }
+
+        public void DisplayLowFunds(User user, decimal balance)
+        {
+            Console.WriteLine($"Attention {user.Username}, current balance is now {balance}");
         }
 
         public Product GetProductByID(int id)

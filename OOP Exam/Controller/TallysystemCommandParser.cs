@@ -107,7 +107,10 @@ namespace OOP_Exam.Controller
                         {
                             if (user.Balance > product.Price * amount)
                             {
-                                Tallysystem.ExecuteTransaction(Tallysystem.BuyProduct(user, product));
+                                for (int i = 0; i < amount; i++)
+                                {
+                                    Tallysystem.ExecuteTransaction(Tallysystem.BuyProduct(user, product));
+                                }
                                 Ui.DisplayUserBuysProduct(amount, Tallysystem.BuyProduct(user, product));
                             }
                             else

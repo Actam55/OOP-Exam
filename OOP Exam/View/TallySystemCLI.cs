@@ -56,7 +56,7 @@ namespace OOP_Exam.Models
         public void DisplayUserBuysProduct(int count, BuyTransaction transaction)
         {
             if (count > 1)
-                Console.WriteLine($"{count} {transaction.Product.Name}'s have been purchased.");
+                Console.WriteLine($"{count} * {transaction.Product.Name}'s have been purchased.");
             else
                 Console.WriteLine($"{transaction.Product.Name} has been purchased.");
         }

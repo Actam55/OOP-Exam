@@ -13,7 +13,7 @@ namespace OOP_Exam.Models
             Id = _nextID;
             _nextID++;
             Name = name;
-            Price = price;
+            Price = price * 0.01m;
             CanBeBoughtOnCredit = canBeBoughtOnCredit;
             SeasonStartDate = seasonStartDate;
             SeasonEndDate = seasonEndDate;

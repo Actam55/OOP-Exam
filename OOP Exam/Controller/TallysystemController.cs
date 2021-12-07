@@ -18,8 +18,9 @@ namespace OOP_Exam.Controller
         {
             Tallysystem = tallysystem;
             Ui = ui;
-            CommandParser = new(ui, tallysystem);
-            ui.CommandEntered += CommandParser.ParseCommand; //add a new method 
+            CommandParser = new TallysystemCommandParser(ui, tallysystem);
+            ui.CommandEntered += CommandParser.ParseCommand; //add a new method
+            tallysystem.UserBalanceWarning += tallysystem.DisplayLowFunds;
         }
     }
 }
