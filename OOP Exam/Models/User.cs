@@ -10,6 +10,7 @@ namespace OOP_Exam.Models
 {
     public class User : IComparable
     {
+        public delegate void UserBalanceNotification(User user, decimal balance);
         private static int _nextID = 12; //skal måske ændres for at blive mere dynamisk
         public int Id { get; set; }
         public string FirstName
@@ -116,7 +117,6 @@ namespace OOP_Exam.Models
         private string _email;
         private decimal _balance;
 
-        public delegate void UserBalanceNotification(User user, decimal balance);
 
         public User(string firstName, string lastName, string username, decimal balance, string email)
         {

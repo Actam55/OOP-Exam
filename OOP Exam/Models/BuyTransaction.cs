@@ -26,9 +26,9 @@ namespace OOP_Exam.Models
             {
                 throw new InactiveProductException("Product is no longer active");
             }
-            if (User.Balance - Product.Price < 0)
+            if (User.Balance - Product.Price < 0 && !Product.CanBeBoughtOnCredit)
             {
-                throw new InsufficientCreditsException("Broke bitch *Fortnite dance*");
+                throw new InsufficientCreditsException("Insufficient balance");
             }
             User.Balance -= Product.Price;
         }

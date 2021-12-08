@@ -67,7 +67,7 @@ namespace OOP_Exam.Controller
                             BuyCommand(commands[0], commands[2], commands[1]);
                             break;
                         case > 3:
-                            Ui.DisplayAdminCommandNotFoundMessage(command);
+                            Ui.DisplayAdminCommandNotFoundMessage(command); //Wrogn func
                             break;
                         default:
                             break;
@@ -202,41 +202,5 @@ namespace OOP_Exam.Controller
                 Ui.DisplayProductNotFound(productIdString);
             }
         }
-
-        //Helper functions
-        private int? GetProductIdFromString(string productIdString)
-        {
-            bool idSuccess = int.TryParse(productIdString, out int productId);
-            if (idSuccess)
-            {
-                return productId;
-            }
-            else
-            {
-                Ui.DisplayProductNotFound($"No product with ID: {productIdString} was found");
-                return null;
-            }
-        }
     }
 }
-//Måske funktioner til hver type af kommando, som køb(bruger, produktId, mængde = 1);
-
-//private void MultiBuyCommand(string username, string amountString, string productIdString) //To buy multiple products
-//{
-//    bool success = int.TryParse(amountString, out int amount); //Tries to parse to int, if it can success == true
-//    if (!success)
-//    {
-//        throw new Exception("");
-//    }
-//    else
-//    {
-//        for (int i = 0; i < amount; i++)
-//        {
-//            BuyCommand(username, productIdString);
-//        }
-//    }
-//}
-//private void DisplayInvalidInputCommand(string invalidString)
-//{
-//    Ui.DisplayTooManyArgumentsError(invalidString);
-//}
