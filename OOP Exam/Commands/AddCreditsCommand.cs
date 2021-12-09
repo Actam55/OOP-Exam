@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace OOP_Exam.Commands
 {
-    internal class DeactivateProductCommand : ICommand
+    internal class AddCreditsCommand : ICommand
     {
         private readonly ITallysystemUI _ui;
         private readonly ITallysystem _tallySystem;
-        private string[] _commands;
-        public DeactivateProductCommand(ITallysystemUI ui, ITallysystem tallySystem, string[] commands)
+        private readonly string[] _commands;
+        public AddCreditsCommand(ITallysystemUI ui, ITallysystem tallySystem, string[] commands)
         {
             _ui = ui;
             _tallySystem = tallySystem;
@@ -22,16 +22,16 @@ namespace OOP_Exam.Commands
 
         public void Execute()
         {
-            bool idSuccess = int.TryParse(_commands[1], out int productId);
-            if (idSuccess)
+            User user = _tallySystem.GetUserByUsername(_commands[1]);
+            bool creditSuccess = int.TryParse(_commands[2], out int credits);
+            if (creditSuccess)
             {
-                Product product = _tallySystem.GetProductByID(productId);
-                product.Active = false;
+                user.Balance += credits;
                 _ui.DisplayUI();
             }
             else
             {
-                _ui.DisplayProductNotFound(_commands[1]);
+                _ui.DisplayGeneralError($"{_commands[2]} is not a valid amount of credits");
             }
         }
     }

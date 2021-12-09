@@ -19,6 +19,7 @@ namespace OOP_Exam.Interfaces
         void Close();
         void DisplayInsufficientCash(User user, Product product, int amount);
         void DisplayGeneralError(string errorString);
+        public void DisplayUI();
         void Start();
         event TallysystemEvent CommandEntered;
     }

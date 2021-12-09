@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OOP_Exam.Interfaces;
 using System.Text.RegularExpressions;
+using OOP_Exam.Exceptions;
 
 namespace OOP_Exam.Models
 {
@@ -30,6 +31,7 @@ namespace OOP_Exam.Models
             }
         }
         public int MyProperty { get; set; }
+
         public IEnumerable<Product> ActiveProducts()
         {
             List<Product> list = new();
@@ -87,7 +89,7 @@ namespace OOP_Exam.Models
                     return product;
                 }
             }
-            return null;
+            throw new ProductNotFoundException(id);
         }
 
         public IEnumerable<Transaction> GetTransactions(User user, int count) //Check om den bruger listen af transaktioner korrekt. Skal tage de nyest først.
@@ -108,6 +110,7 @@ namespace OOP_Exam.Models
         }
 
         public User GetUserByUsername(string username)
+
         {
             foreach (User user in Users)
             {
@@ -116,7 +119,7 @@ namespace OOP_Exam.Models
                     return user;
                 }
             }
-            return null;
+            throw new UserNotFoundException(username);
         }
 
         public IEnumerable<User> GetUsers(Func<User, bool> predicate) //Vi tjekker for hver bruger i vores liste om de opfylder predicate, og returnere alle der gør

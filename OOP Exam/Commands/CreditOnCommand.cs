@@ -8,29 +8,30 @@ using System.Threading.Tasks;
 
 namespace OOP_Exam.Commands
 {
-    public class CreditOnCommand :ICommand
+    public class CreditOnCommand : ICommand
     {
         private readonly ITallysystemUI _ui;
         private readonly ITallysystem _tallySystem;
-        private int _productId;
-        public CreditOnCommand(ITallysystemUI ui, ITallysystem tallySystem, int productId)
+        private string[] _commands;
+        public CreditOnCommand(ITallysystemUI ui, ITallysystem tallySystem, string[] commands)
         {
             _ui = ui;
             _tallySystem = tallySystem;
-            _productId = productId;
+            _commands = commands;
         }
-
 
         public void Execute()
         {
-            Product product = _tallySystem.GetProductByID(_productId);
-            if (product != null)
+            bool idSuccess = int.TryParse(_commands[1], out int productId);
+            if (idSuccess)
             {
+                Product product = _tallySystem.GetProductByID(productId);
                 product.CanBeBoughtOnCredit = true;
+                _ui.DisplayUI();
             }
             else
             {
-                _ui.DisplayProductNotFound(_productId.ToString());
+                _ui.DisplayProductNotFound(_commands[1]);
             }
         }
     }

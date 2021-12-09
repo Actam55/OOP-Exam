@@ -1,4 +1,6 @@
-﻿using OOP_Exam.Interfaces;
+﻿using OOP_Exam.Commands;
+using OOP_Exam.Exceptions;
+using OOP_Exam.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +13,67 @@ namespace OOP_Exam.Controller
     {
         private readonly ITallysystem _tallySystem;
         private readonly ITallysystemUI _ui;
-        private readonly TallysystemController _controller;
+        private readonly Dictionary<string, ICommand> adminCommands = new();
 
-        public TallysystemCommandParser2(ITallysystemUI ui, ITallysystem tallysystem, TallysystemController controller)
+        public TallysystemCommandParser2(ITallysystemUI ui, ITallysystem tallysystem)
         {
             _ui = ui;
             _tallySystem = tallysystem;
-            _controller = controller;
+            
         }
-        public void ParseCommand(string command)
+        private void InitializeAdminCommands(string[] command) //Invoker
+        {
+            adminCommands.Add(":q", new QuitCommand(_ui));
+            adminCommands.Add(":quit", new QuitCommand(_ui));
+            adminCommands.Add(":activate", new ActivateProductCommand(_ui, _tallySystem, command));
+            adminCommands.Add(":deactivate", new DeactivateProductCommand(_ui, _tallySystem, command));
+            adminCommands.Add(":addcredits", new AddCreditsCommand(_ui, _tallySystem, command));
+        }
+        public void ParseCommand(string command) //Exceptions might be moved to TallySystemCLI
         {
             string[] commands = command.Split(' ');
+            InitializeAdminCommands(commands);
+            if (!String.IsNullOrEmpty(command) && command[0] == ':')
+            {
+                try
+                {
+                    adminCommands[$"{commands[0]}"].Execute();
+                }
+                catch (ProductNotFoundException)
+                {
+                    _ui.DisplayProductNotFound(commands[1]);
+                }
+                catch (UserNotFoundException)
+                {
+                    _ui.DisplayUserNotFound(commands[1]);
+                }
+                catch 
+                {
+                    _ui.DisplayAdminCommandNotFoundMessage(commands[0]);
+                }
+            }
+            else
+            {
+                switch (commands.Length)
+                {
+                    case 1:
+                        //DisplayInfoCommand(commands[0]);
+                        break;
+                    case 2:
+                        //BuyCommand(commands[0], commands[1]);
+                        break;
+                    case 3:
+                        //BuyCommand(commands[0], commands[2], commands[1]);
+                        break;
+                    case > 3:
+                        _ui.DisplayTooManyArgumentsError(command); //Wrogn func
+                        break;
+                    default:
+                        _ui.DisplayGeneralError(command);
+                        break;
+                }
+            }
+            adminCommands.Clear();
         }
     }
 }

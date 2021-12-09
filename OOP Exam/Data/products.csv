@@ -1,4 +1,4 @@
-﻿id;name;price;active;deactivate_date
+﻿:activaid;name;price;active;deactivate_date
 1;Diverse;100;0;
 2;"½L Letmælk";450;0;
 3;"¼L Letmælk";250;0;

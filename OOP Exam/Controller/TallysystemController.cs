@@ -15,23 +15,16 @@ namespace OOP_Exam.Controller
         private readonly ITallysystemUI _ui;
         private readonly TallysystemCommandParser CommandParser;
         private readonly TallysystemCommandParser2 CommandParser2;
-        private readonly Dictionary<string, ICommand> adminCommands = new();
+        //private readonly Dictionary<string, ICommand> adminCommands = new();
+
 
         public TallysystemController(ITallysystemUI ui, ITallysystem tallysystem)
         {
-            InitializeAdminCommands();
             _tallySystem = tallysystem;
             _ui = ui;
-            CommandParser = new TallysystemCommandParser(ui, tallysystem);
-            ui.CommandEntered += CommandParser.ParseCommand; //add a new method
-            tallysystem.UserBalanceWarning += tallysystem.DisplayLowFunds;
-        }
-
-        private void InitializeAdminCommands()
-        {
-            adminCommands.Add(":q", new QuitCommand(_ui));
-            adminCommands.Add(":quit", new QuitCommand(_ui));
-            //adminCommands.Add(":activate", new ActivateProductCommand(_ui, _tallySystem, ));
+            CommandParser2 = new TallysystemCommandParser2(ui, tallysystem);
+            ui.CommandEntered += CommandParser2.ParseCommand; //add a new method
+            tallysystem.UserBalanceWarning += tallysystem.DisplayLowFunds; //Might not need to be here
         }
     }
 }

@@ -18,13 +18,9 @@ namespace OOP_Exam
     {
         static void Main(string[] args)
         {
-            Product sProduct = new SeasonalProduct("Seasonla product", 100, true, new DateTime(2021, 1, 1), new DateTime(2022, 1, 1));
-            
             ITallysystem tallysystem = new Tallysystem();
             ITallysystemUI ui = new TallySystemCLI(tallysystem); //publisher
             TallysystemController sc = new TallysystemController(ui, tallysystem); //Listener
-
-            tallysystem.Products.Add(sProduct);
 
             ui.Start();
             sc.ToString();

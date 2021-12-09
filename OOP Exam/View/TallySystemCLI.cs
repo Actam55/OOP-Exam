@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OOP_Exam.Exceptions;
 using OOP_Exam.Interfaces;
 
 namespace OOP_Exam.Models
@@ -88,8 +89,9 @@ namespace OOP_Exam.Models
                 OnCommandEntered(command);
             }
         }
-        void DisplayUI()
+        public void DisplayUI()
         {
+            Console.Clear();
             DisplayUserInputField();
             DisplayProductCatalog();
         }

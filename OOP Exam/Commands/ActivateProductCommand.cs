@@ -12,24 +12,27 @@ namespace OOP_Exam.Commands
     {
         private readonly ITallysystemUI _ui;
         private readonly ITallysystem _tallySystem;
-        private int _productId;
-        public ActivateProductCommand(ITallysystemUI ui, ITallysystem tallySystem, int productId)
+        private readonly string[] _commands;
+
+        public ActivateProductCommand(ITallysystemUI ui, ITallysystem tallySystem, string[] commands)
         {
             _ui = ui;
             _tallySystem = tallySystem;
-            _productId = productId;
+            _commands = commands;
         }
 
-        public void Execute()
+        public void Execute() //Mulighed for validering ved GetProduct måske
         {
-            Product product = _tallySystem.GetProductByID(_productId);
-            if (product != null)
+            bool idSuccess = int.TryParse(_commands[1], out int productId);
+            if (idSuccess)
             {
+                Product product = _tallySystem.GetProductByID(productId);
                 product.Active = true;
+                _ui.DisplayUI();
             }
             else
             {
-                _ui.DisplayProductNotFound(_productId.ToString());
+                _ui.DisplayProductNotFound(_commands[1]);
             }
         }
     }
