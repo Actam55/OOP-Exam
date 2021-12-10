@@ -22,9 +22,9 @@ namespace OOP_Exam.Commands
 
         public void Execute()
         {
-                Product product = _tallySystem.GetProductByID(Convert.ToInt32(_commands[1]));
-                product.CanBeBoughtOnCredit = false;
-                _ui.DisplayUI();
+            Product product = _tallySystem.GetProductByID(Convert.ToInt32(_commands[1]));
+            product.CanBeBoughtOnCredit = false;
+            _ui.DisplayUI();
         }
     }
 }

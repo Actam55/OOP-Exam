@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_Exam.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,10 @@ namespace OOP_Exam.Models
                 {
                     return false;
                 }
+            }
+            set
+            {
+                throw new CannotSetSeasonalProductException();
             }
         }
     }

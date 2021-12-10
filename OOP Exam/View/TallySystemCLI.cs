@@ -88,30 +88,34 @@ namespace OOP_Exam.Models
                 string command = Console.ReadLine();
                 string[] commands = command.Split(new char[] { ' ' });
 
-                try
-                {
+                //try
+                //{
                     OnCommandEntered(command);
-                }
-                catch (ProductNotFoundException)
-                {
-                    DisplayProductNotFound(commands[1]);
-                }
-                catch (UserNotFoundException)
-                {
-                    DisplayUserNotFound(commands[1]);
-                }
-                catch (FormatException)
-                {
-                    DisplayGeneralError($"{commands[2]} is not a valid amount of credits");
-                }
-                catch (KeyNotFoundException)
-                {
-                    DisplayAdminCommandNotFoundMessage(commands[0]);
-                }
-                catch (ArgumentException)
-                {
-                    DisplayAdminCommandNotFoundMessage(commands[0]);
-                }
+                //}
+                //catch (ProductNotFoundException)
+                //{
+                //    DisplayProductNotFound(commands[1]);
+                //}
+                //catch (UserNotFoundException)
+                //{
+                //    DisplayUserNotFound(commands[1]);
+                //}
+                //catch (KeyNotFoundException)
+                //{
+                //    DisplayAdminCommandNotFoundMessage(commands[0]);
+                //}
+                //catch (CannotSetSeasonalProductException)
+                //{
+                //    DisplayGeneralError("Cannot change active status of seasonal product");
+                //}
+                //catch (ArgumentException)
+                //{
+                //    DisplayAdminCommandNotFoundMessage(commands[0]);
+                //}
+                //catch (FormatException)
+                //{
+                //    DisplayGeneralError($"{command} is not a valid command");
+                //}
             }
         }
         public void DisplayUI()

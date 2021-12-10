@@ -143,7 +143,7 @@ namespace OOP_Exam.Models
         
         public override string ToString()
         {
-            return $"Name: {FirstName + ' ' + LastName,-20} Email: {Email,-20}";
+            return $"Name: {FirstName + ' ' + LastName}\nEmail: {Email}\nBalance: {Balance,-20}";
         }
 
         public int CompareTo(object obj)

@@ -23,7 +23,6 @@ namespace OOP_Exam
             TallysystemController sc = new TallysystemController(ui, tallysystem); //Listener
 
             ui.Start();
-            sc.ToString();
         }
     }
 }
