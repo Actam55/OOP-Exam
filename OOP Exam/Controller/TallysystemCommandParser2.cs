@@ -31,34 +31,31 @@ namespace OOP_Exam.Controller
         }
         public void ParseCommand(string command)
         {
-            if (!String.IsNullOrEmpty(command))
+            string[] commands = command.Split(' ');
+            InitializeAdminCommands(commands);
+            if (!String.IsNullOrEmpty(command) && command[0] == ':')
             {
-                string[] commands = command.Split(' ');
-                InitializeAdminCommands(commands);
-                if (command[0] == ':')
+                adminCommands[$"{commands[0]}"].Execute();
+            }
+            else
+            {
+                switch (commands.Length)
                 {
-                    adminCommands[$"{commands[0]}"].Execute();
-                }
-                else
-                {
-                    switch (commands.Length)
-                    {
-                        case 1:
-                            //DisplayInfoCommand(commands[0]);
-                            break;
-                        case 2:
-                            //BuyCommand(commands[0], commands[1]);
-                            break;
-                        case 3:
-                            //BuyCommand(commands[0], commands[2], commands[1]);
-                            break;
-                        case > 3:
-                            _ui.DisplayTooManyArgumentsError(command);
-                            break;
-                        default:
-                            _ui.DisplayGeneralError(command);
-                            break;
-                    }
+                    case 1:
+                        //DisplayInfoCommand(commands[0]);
+                        break;
+                    case 2:
+                        //BuyCommand(commands[0], commands[1]);
+                        break;
+                    case 3:
+                        //BuyCommand(commands[0], commands[2], commands[1]);
+                        break;
+                    case > 3:
+                        _ui.DisplayTooManyArgumentsError(command);
+                        break;
+                    default:
+                        _ui.DisplayGeneralError(command);
+                        break;
                 }
             }
             adminCommands.Clear();
