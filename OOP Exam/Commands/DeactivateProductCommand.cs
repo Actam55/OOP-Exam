@@ -22,17 +22,9 @@ namespace OOP_Exam.Commands
 
         public void Execute()
         {
-            bool idSuccess = int.TryParse(_commands[1], out int productId);
-            if (idSuccess)
-            {
-                Product product = _tallySystem.GetProductByID(productId);
-                product.Active = false;
-                _ui.DisplayUI();
-            }
-            else
-            {
-                _ui.DisplayProductNotFound(_commands[1]);
-            }
+            Product product = _tallySystem.GetProductByID(Convert.ToInt32(_commands[1]));
+            product.Active = false;
+            _ui.DisplayUI();
         }
     }
 }

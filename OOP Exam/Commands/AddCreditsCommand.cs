@@ -23,16 +23,8 @@ namespace OOP_Exam.Commands
         public void Execute()
         {
             User user = _tallySystem.GetUserByUsername(_commands[1]);
-            bool creditSuccess = int.TryParse(_commands[2], out int credits);
-            if (creditSuccess)
-            {
-                user.Balance += credits;
-                _ui.DisplayUI();
-            }
-            else
-            {
-                _ui.DisplayGeneralError($"{_commands[2]} is not a valid amount of credits");
-            }
+            user.Balance += Convert.ToInt32(_commands[2]);
+            _ui.DisplayUI();
         }
     }
 }

@@ -86,7 +86,28 @@ namespace OOP_Exam.Models
             while (true)
             {
                 string command = Console.ReadLine();
-                OnCommandEntered(command);
+                string[] commands = command.Split(new char[] { ' ' });
+
+                try
+                {
+                    OnCommandEntered(command);
+                }
+                catch (ProductNotFoundException)
+                {
+                    DisplayProductNotFound(commands[1]);
+                }
+                catch (UserNotFoundException)
+                {
+                    DisplayUserNotFound(commands[1]);
+                }
+                catch (FormatException)
+                {
+                    DisplayGeneralError($"{commands[2]} is not a valid amount of credits");
+                }
+                catch (KeyNotFoundException)
+                {
+                    DisplayAdminCommandNotFoundMessage(commands[0]);
+                }
             }
         }
         public void DisplayUI()
