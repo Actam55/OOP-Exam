@@ -108,6 +108,10 @@ namespace OOP_Exam.Models
                 {
                     DisplayAdminCommandNotFoundMessage(commands[0]);
                 }
+                catch (ArgumentException)
+                {
+                    DisplayAdminCommandNotFoundMessage(commands[0]);
+                }
             }
         }
         public void DisplayUI()

@@ -19,11 +19,11 @@ namespace OOP_Exam.Controller
         {
             _ui = ui;
             _tallySystem = tallysystem;
-            
+
         }
         private void InitializeAdminCommands(string[] command) //Invoker
         {
-            adminCommands.Add(":q", new QuitCommand(_ui)); //System.ArgumentException for some reason tries tp add a ned key of ":q" when enter ':' and then nothing
+            adminCommands.Add(":q", new QuitCommand(_ui));
             adminCommands.Add(":quit", new QuitCommand(_ui));
             adminCommands.Add(":activate", new ActivateProductCommand(_ui, _tallySystem, command));
             adminCommands.Add(":deactivate", new DeactivateProductCommand(_ui, _tallySystem, command));
@@ -31,31 +31,34 @@ namespace OOP_Exam.Controller
         }
         public void ParseCommand(string command)
         {
-            string[] commands = command.Split(' ');
-            InitializeAdminCommands(commands);
-            if (!String.IsNullOrEmpty(command) && command[0] == ':')
+            if (!String.IsNullOrEmpty(command))
             {
-                    adminCommands[$"{commands[0]}"].Execute();
-            }
-            else
-            {
-                switch (commands.Length)
+                string[] commands = command.Split(' ');
+                InitializeAdminCommands(commands);
+                if (command[0] == ':')
                 {
-                    case 1:
-                        //DisplayInfoCommand(commands[0]);
-                        break;
-                    case 2:
-                        //BuyCommand(commands[0], commands[1]);
-                        break;
-                    case 3:
-                        //BuyCommand(commands[0], commands[2], commands[1]);
-                        break;
-                    case > 3:
-                        _ui.DisplayTooManyArgumentsError(command);
-                        break;
-                    default:
-                        _ui.DisplayGeneralError(command);
-                        break;
+                    adminCommands[$"{commands[0]}"].Execute();
+                }
+                else
+                {
+                    switch (commands.Length)
+                    {
+                        case 1:
+                            //DisplayInfoCommand(commands[0]);
+                            break;
+                        case 2:
+                            //BuyCommand(commands[0], commands[1]);
+                            break;
+                        case 3:
+                            //BuyCommand(commands[0], commands[2], commands[1]);
+                            break;
+                        case > 3:
+                            _ui.DisplayTooManyArgumentsError(command);
+                            break;
+                        default:
+                            _ui.DisplayGeneralError(command);
+                            break;
+                    }
                 }
             }
             adminCommands.Clear();
