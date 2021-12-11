@@ -22,7 +22,7 @@ namespace OOP_Exam.Models
 
         public DateTime SeasonStartDate { get; set; }
         public DateTime SeasonEndDate { get; set; }
-        public override bool Active
+        public override bool Active //Should not care about year
         {
             get
             {

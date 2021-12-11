@@ -26,6 +26,8 @@ namespace OOP_Exam.Controller
             adminCommands.Add(":q", new QuitCommand(_ui));
             adminCommands.Add(":quit", new QuitCommand(_ui));
             adminCommands.Add(":activate", new ActivateProductCommand(_ui, _tallySystem, command));
+            adminCommands.Add(":crediton", new CreditOnCommand(_ui, _tallySystem, command));
+            adminCommands.Add(":creditoff", new CreditOffCommand(_ui, _tallySystem, command));
             adminCommands.Add(":deactivate", new DeactivateProductCommand(_ui, _tallySystem, command));
             adminCommands.Add(":addcredits", new AddCreditsCommand(_ui, _tallySystem, command));
         }

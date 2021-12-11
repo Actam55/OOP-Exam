@@ -10,8 +10,34 @@ namespace OOP_Exam.Models
 {
     public class User : IComparable
     {
+        private int _nextID = 12; //skal måske ændres for at blive mere dynamisk
+        private string _firstName;
+        private string _lastName;
+        private string _userName;
+        private string _email;
+        private decimal _balance;
         public delegate void UserBalanceNotification(User user, decimal balance);
-        private static int _nextID = 12; //skal måske ændres for at blive mere dynamisk
+
+        public User(string firstName, string lastName, string username, decimal balance, string email)
+        {
+            Id = _nextID;
+            _nextID++;
+            FirstName = firstName;
+            LastName = lastName;
+            Username = username;
+            Email = email;
+            Balance = balance * 0.01m;
+        }
+        public User(string firstName, string lastName, string username, decimal balance, string email, int id)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Username = username;
+            Email = email;
+            Balance = balance * 0.01m;
+        }
+
         public int Id { get; set; }
         public string FirstName
         {
@@ -59,38 +85,13 @@ namespace OOP_Exam.Models
             }
             set
             {
-                string mail = value;
-                int count = 0;
-
-                foreach (char charecter in mail)
+                if (CheckEmail(value))
                 {
-                    if (charecter == '@')
-                    {
-                        count++;
-                    }
-                }
-                if (count != 1)
-                {
-                    throw new Exception(""); //Lav en metode så der ikke behøves en exception
+                    _email = value;
                 }
                 else
                 {
-                    string[] substrings = mail.Split('@');
-                    string localPart = substrings[0];
-                    string domain = substrings[1];
-
-                    if (!Regex.IsMatch(localPart, @"^[a-zA-Z0-9_.-]+$"))
-                    {
-                        throw new Exception(""); //Lav en metode så der ikke behøves en exception
-                    }
-                    else if (!Regex.IsMatch(domain, @"^[a-zA-Z0-9-.]+$") || !domain.Contains(".") || domain.EndsWith(".") || domain.StartsWith(".") || domain.EndsWith("-") || domain.StartsWith("-"))
-                    {
-                        throw new Exception(""); //Lav en metode så der ikke behøves en exception
-                    }
-                    else
-                    {
-                        _email = mail;
-                    }
+                    throw new ArgumentException($"'{value}' is not a valid email");
                 }
             }
         }
@@ -102,48 +103,13 @@ namespace OOP_Exam.Models
             }
             set
             {
-                if (_balance < 50)
-                {
-                    
-                }
                 _balance = value; //Introducer delegate som opgaven siger!!!!
             }
         }
 
-
-        private string _firstName;
-        private string _lastName;
-        private string _userName;
-        private string _email;
-        private decimal _balance;
-
-
-        public User(string firstName, string lastName, string username, decimal balance, string email)
-        {
-            Id = _nextID;
-            _nextID++;
-            FirstName = firstName;
-            LastName = lastName;
-            Username = username;
-            Email = email;
-            Balance = balance * 0.01m;
-        }
-
-        public User(string firstName, string lastName, string username, decimal balance, string email, int id)
-        {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            Username = username;
-            Email = email;
-            Balance = balance * 0.01m;
-        }
-
-
-        
         public override string ToString()
         {
-            return $"Name: {FirstName + ' ' + LastName}\nEmail: {Email}\nBalance: {Balance,-20}";
+            return $"Name: {FirstName + ' ' + LastName}\nEmail: {Email}\nID: {Id}\nBalance: {Balance}";
         }
 
         public int CompareTo(object obj)
@@ -159,12 +125,46 @@ namespace OOP_Exam.Models
 
         public override bool Equals(object obj)
         {
-            return obj is User user && Username == user.Username;
+            return obj is User user && Id == user.Id;
         }
 
         public override int GetHashCode()
         {
             return HashCode.Combine(Username);
         }
+
+        private bool CheckEmail(string email) //maybe a better name and should be checked through more
+        {
+            string[] substrings = email.Split('@');
+
+            if (substrings.Length != 2)
+            {
+                return false;
+            }
+
+            string localPart = substrings[0];
+            string domain = substrings[1];
+
+            if (CheckLocalAndDomain(localPart, domain))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool CheckLocalAndDomain(string localPart, string domain) //maybe a better name
+        {
+            if (!Regex.IsMatch(localPart, @"^[a-zA-Z0-9_.-]+$") && !Regex.IsMatch(domain, @"^[a-zA-Z0-9-.]+$") || !domain.Contains(".") || domain.EndsWith(".") || domain.StartsWith(".") || domain.EndsWith("-") || domain.StartsWith("-"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
+

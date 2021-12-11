@@ -22,6 +22,10 @@ namespace OOP_Exam.Models
             {
                 return _users;
             }
+            set
+            {
+                _users = value;
+            }
         }
         public List<Product> Products
         {
