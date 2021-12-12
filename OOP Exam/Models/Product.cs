@@ -9,8 +9,13 @@ namespace OOP_Exam.Models
     public class Product
     {
         public int _nextID = 1838; //Might need to be changed for more dynamic ID
+        public int _id;
+        private string _name;
+        private decimal _price;
+        private bool _active;
+        private bool _canBeBoughtOnCredit;
 
-        public int Id //Id need to be handled in a way so all id's are unique
+        public int Id
         {
             get
             {
@@ -29,7 +34,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                _name = value ?? "";
+                _name = value ?? "Unnamed product";
             }
         }
         public decimal Price
@@ -64,14 +69,8 @@ namespace OOP_Exam.Models
             {
                 _canBeBoughtOnCredit = value;
             }
-        } //Im not sure I understand this
+        }
 
-        public int _id;
-        private string _name;
-        private decimal _price;
-        private bool _active;
-        private bool _canBeBoughtOnCredit;
-        public int MyProperty { get; set; }
 
         public Product(string name, decimal price, bool active, bool canBeBoughtOnCredit) //Constructor no given ID 
         {
@@ -82,7 +81,6 @@ namespace OOP_Exam.Models
             Active = active;
             CanBeBoughtOnCredit = canBeBoughtOnCredit;
         }
-
         public Product(string name, decimal price, bool active, bool canBeBoughtOnCredit, int id) //Constructor for given ID
         {
             Id = id;
@@ -91,7 +89,10 @@ namespace OOP_Exam.Models
             Active = active;
             CanBeBoughtOnCredit = canBeBoughtOnCredit;
         }
-        public Product() { } //
+        public Product() //Constructor for Seasonal product
+        {
+
+        }
 
         public override string ToString()
         {

@@ -14,7 +14,6 @@ namespace OOP_Exam.Models
             Product = product;
         }
         public Product Product { get; }
-        //public decimal Amount { get; set; } I'm not sure what he want's here
         public override string ToString()
         {
             return $"Tranaction type: Buy, Price: {Product.Price}, User: {User.FirstName} {User.LastName}, Date: {Date}, ID: {ID}";
