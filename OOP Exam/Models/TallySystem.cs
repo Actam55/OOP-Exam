@@ -13,9 +13,10 @@ namespace OOP_Exam.Models
 {
     public class Tallysystem : ITallysystem
     {
-        private List<User> _users = UsersFromCvsFile();
-        public List<Product> _products = ProductsFromCvsFile(); //En liste af produkter som skal hentes fra vores fil
+        private List<User> _users = UsersFromCvsFile(); //En liste af brugere som hentes fra CSV fil
+        public List<Product> _products = ProductsFromCvsFile(); //En liste af produkter som hentes fra CSV fil
         List<Transaction> transactions = new List<Transaction>(); //En liste af alle transaktioner
+        public event User.UserBalanceNotification UserBalanceWarning;
         public List<User> Users
         {
             get
@@ -34,7 +35,6 @@ namespace OOP_Exam.Models
                 return _products;
             }
         }
-        public int MyProperty { get; set; }
 
         public IEnumerable<Product> ActiveProducts()
         {
@@ -49,7 +49,6 @@ namespace OOP_Exam.Models
             return list;
         }
 
-        public event User.UserBalanceNotification UserBalanceWarning; //Missing
 
         public void OnBalanceUnder50(User user)
         {
@@ -64,9 +63,9 @@ namespace OOP_Exam.Models
             return new InsertCashTransaction(user, amount);
         }
 
-        public BuyTransaction BuyProduct(User user, Product product)
+        public BuyTransaction BuyProduct(User user, Product product, int amount)
         {
-            return new BuyTransaction(user, product);
+            return new BuyTransaction(user, product, amount);
         }
 
         public void ExecuteTransaction(Transaction transaction)
@@ -93,7 +92,7 @@ namespace OOP_Exam.Models
                     return product;
                 }
             }
-            throw new ProductNotFoundException(id);
+            throw new ProductNotFoundException("Product with given ID was not found");
         }
 
         public IEnumerable<Transaction> GetTransactions(User user, int count) //Check om den bruger listen af transaktioner korrekt. Skal tage de nyest først.
@@ -123,7 +122,7 @@ namespace OOP_Exam.Models
                     return user;
                 }
             }
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException("No user was found");
         }
 
         public IEnumerable<User> GetUsers(Func<User, bool> predicate) //Vi tjekker for hver bruger i vores liste om de opfylder predicate, og returnere alle der gør

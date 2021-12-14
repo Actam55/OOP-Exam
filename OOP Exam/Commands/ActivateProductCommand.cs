@@ -28,7 +28,6 @@ namespace OOP_Exam.Commands
             {
                 Product product = _tallySystem.GetProductByID(productId);
                 product.Active = true;
-                _ui.DisplayUI();
             }
             else
             {

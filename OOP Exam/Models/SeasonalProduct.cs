@@ -37,7 +37,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                throw new CannotSetSeasonalProductException();
+                throw new CannotSetSeasonalProductException("Cannot set seasonal product to active or not active");
             }
         }
     }

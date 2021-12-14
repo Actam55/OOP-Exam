@@ -11,7 +11,7 @@ namespace OOP_Exam.Interfaces
     {
         List<Product> Products { get; }
         List<User> Users { get; set; }
-        BuyTransaction BuyProduct(User user, Product product); //udfører den logik der køber et produkt på en brugers konto, ved brug af en transaktion
+        BuyTransaction BuyProduct(User user, Product product, int count); //udfører den logik der køber et produkt på en brugers konto, ved brug af en transaktion
         InsertCashTransaction AddCreditsToAccount(User user, decimal amount); //indsætter et beløb på en brugers konto, via en transaktion.
         void ExecuteTransaction(Transaction transaction); //hjælpemetode til at eksekvere transaktioner, og sørge for at de bliver
         void DisplayLowFunds(User user, decimal balance);

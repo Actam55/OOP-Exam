@@ -77,7 +77,7 @@ namespace OOP_Exam.Models
                     throw new ArgumentException("Username is not valid");
             }
         }
-        public string Email     //Find proper regex or write method for email check
+        public string Email
         {
             get
             {
@@ -103,7 +103,7 @@ namespace OOP_Exam.Models
             }
             set
             {
-                _balance = value; //Introducer delegate som opgaven siger!!!!
+                _balance = value;
             }
         }
 

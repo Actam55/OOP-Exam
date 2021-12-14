@@ -9,27 +9,29 @@ namespace OOP_Exam.Models
 {
     public class BuyTransaction : Transaction
     {
-        public BuyTransaction(User user, Product product) : base(user, product.Price)
+        public Product Product { get; }
+        public int Count { get; set; }
+
+        public BuyTransaction(User user, Product product, int count) : base(user, product.Price)
         {
             Product = product;
+            Count = count;
         }
-        public Product Product { get; }
         public override string ToString()
         {
             return $"Tranaction type: Buy, Price: {Product.Price}, User: {User.FirstName} {User.LastName}, Date: {Date}, ID: {ID}";
         }
-
         public override void Execute()
         {
             if (!Product.Active)
             {
                 throw new InactiveProductException("Product is no longer active");
             }
-            if (User.Balance - Product.Price < 0 && !Product.CanBeBoughtOnCredit)
+            if (User.Balance - Product.Price * Count < 0 && !Product.CanBeBoughtOnCredit)
             {
                 throw new InsufficientCreditsException("Insufficient balance");
             }
-            User.Balance -= Product.Price;
+            User.Balance -= Product.Price * Count;
         }
     }
 }

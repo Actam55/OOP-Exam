@@ -67,9 +67,9 @@ namespace OOP_Exam.Controller
             {
                 _ui.DisplayProductNotFound(commands[1]);
             }
-            catch (UserNotFoundException)
+            catch (UserNotFoundException) //Udskriver admincommand, hvis man indtaster admin kommando or et forkert brugernavn
             {
-                _ui.DisplayUserNotFound(commands[1]);
+                _ui.DisplayUserNotFound(commands[0]);
             }
             catch (KeyNotFoundException)
             {
@@ -98,6 +98,10 @@ namespace OOP_Exam.Controller
             {
                 _ui.DisplayGeneralError($"{command} is not a valid command");
             }
+            catch (IndexOutOfRangeException)
+            {
+                _ui.DisplayGeneralError("No command entered");
+            }
             adminCommands.Clear();
         }
 
@@ -112,11 +116,8 @@ namespace OOP_Exam.Controller
             int productId = Convert.ToInt32(productIdString);
             Product product = _tallySystem.GetProductByID(productId);
             int amount = Convert.ToInt32(amountString);
-            for (int i = 0; i < amount; i++)
-            {
-                _tallySystem.ExecuteTransaction(_tallySystem.BuyProduct(user, product));
-            }
-            _ui.DisplayUserBuysProduct(amount, _tallySystem.BuyProduct(user, product));
+            _tallySystem.ExecuteTransaction(_tallySystem.BuyProduct(user, product, amount));
+            _ui.DisplayUserBuysProduct(amount, _tallySystem.BuyProduct(user, product, amount));
         }
     }
 }

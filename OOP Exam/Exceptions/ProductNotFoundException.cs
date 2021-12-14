@@ -8,7 +8,7 @@ namespace OOP_Exam.Exceptions
 {
     public class ProductNotFoundException : Exception
     {
-        public ProductNotFoundException(int id)
+        public ProductNotFoundException(string message) : base(message)
         {
 
         }

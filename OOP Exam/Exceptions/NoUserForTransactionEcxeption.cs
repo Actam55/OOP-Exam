@@ -8,7 +8,7 @@ namespace OOP_Exam.Exceptions
 {
     internal class NoUserForTransactionException : Exception
     {
-        public NoUserForTransactionException()
+        public NoUserForTransactionException(string message) : base(message)
         {
 
         }

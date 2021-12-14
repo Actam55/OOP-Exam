@@ -25,7 +25,6 @@ namespace OOP_Exam.Commands
 
             Product product = _tallySystem.GetProductByID(Convert.ToInt32(_commands[1]));
             product.CanBeBoughtOnCredit = true;
-            _ui.DisplayUI();
         }
     }
 }

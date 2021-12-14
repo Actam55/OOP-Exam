@@ -71,7 +71,6 @@ namespace OOP_Exam.Models
             }
         }
 
-
         public Product(string name, decimal price, bool active, bool canBeBoughtOnCredit) //Constructor no given ID 
         {
             Id = _nextID;

@@ -8,7 +8,7 @@ namespace OOP_Exam.Exceptions
 {
     public class CannotSetSeasonalProductException : Exception
     {
-        public CannotSetSeasonalProductException()
+        public CannotSetSeasonalProductException(string message) : base(message)
         {
 
         }

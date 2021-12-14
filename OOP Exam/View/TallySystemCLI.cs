@@ -10,14 +10,12 @@ namespace OOP_Exam.Models
 {
     public class TallySystemCLI : ITallysystemUI
     {
-        public ITallysystem TallySystem { get; set; }
-
+        private ITallysystem _tallySystem;
+        public event TallysystemEvent CommandEntered;
         public TallySystemCLI(ITallysystem tallySystem)
         {
-            TallySystem = tallySystem;
+            _tallySystem = tallySystem;
         }
-
-        public event TallysystemEvent CommandEntered;
 
         public void Close()
         {
@@ -49,11 +47,6 @@ namespace OOP_Exam.Models
             Console.WriteLine($"Command {command} contains too many arguments");
         }
 
-        //public void DisplayUserBuysProduct(BuyTransaction transaction)
-        //{
-        //    Console.WriteLine($"{transaction.Product} has been purchased.");
-        //}
-
         public void DisplayUserBuysProduct(int count, BuyTransaction transaction)
         {
             if (count > 1)
@@ -83,39 +76,15 @@ namespace OOP_Exam.Models
         public void Start() //Maybe clear console before writing, so ready for new input?
         {
             DisplayUI();
+
             while (true)
             {
+                Console.SetCursorPosition(10, 0);
                 string command = Console.ReadLine();
                 string[] commands = command.Split(new char[] { ' ' });
-
-                //try
-                //{
-                    OnCommandEntered(command);
-                //}
-                //catch (ProductNotFoundException)
-                //{
-                //    DisplayProductNotFound(commands[1]);
-                //}
-                //catch (UserNotFoundException)
-                //{
-                //    DisplayUserNotFound(commands[1]);
-                //}
-                //catch (KeyNotFoundException)
-                //{
-                //    DisplayAdminCommandNotFoundMessage(commands[0]);
-                //}
-                //catch (CannotSetSeasonalProductException)
-                //{
-                //    DisplayGeneralError("Cannot change active status of seasonal product");
-                //}
-                //catch (ArgumentException)
-                //{
-                //    DisplayAdminCommandNotFoundMessage(commands[0]);
-                //}
-                //catch (FormatException)
-                //{
-                //    DisplayGeneralError($"{command} is not a valid command");
-                //}
+                Console.SetCursorPosition(0, 30);
+                DisplayUI();
+                OnCommandEntered(command);
             }
         }
         public void DisplayUI()
@@ -131,7 +100,7 @@ namespace OOP_Exam.Models
 
         void DisplayProductCatalog()
         {
-            IEnumerable<Product> products = TallySystem.ActiveProducts();
+            IEnumerable<Product> products = _tallySystem.ActiveProducts();
             foreach (Product product in products)
             {
                 Console.WriteLine(product);

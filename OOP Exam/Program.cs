@@ -18,16 +18,9 @@ namespace OOP_Exam
     {
         static void Main(string[] args)
         {
-            User lars = new("Lars", "Hansen", "gamer", 0, "gamer@mail.dk");
-            SeasonalProduct summerBeer = new("Winter beer", 5000, true, new DateTime(2021, 12, 1), new DateTime(2022, 1, 1));
-            
-
             ITallysystem tallysystem = new Tallysystem();
-            tallysystem.Users.Add(lars);
-            tallysystem.Products.Add(summerBeer);
-            ITallysystemUI ui = new TallySystemCLI(tallysystem); //publisher
-            TallysystemController sc = new TallysystemController(ui, tallysystem); //Listener
-
+            ITallysystemUI ui = new TallySystemCLI(tallysystem);
+            TallysystemController sc = new TallysystemController(ui, tallysystem);
 
             ui.Start();
         }

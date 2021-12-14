@@ -8,7 +8,7 @@ namespace OOP_Exam.Exceptions
 {
     public class UserNotFoundException : Exception
     {
-        public UserNotFoundException(string username)
+        public UserNotFoundException(string message) : base(message)
         {
 
         }

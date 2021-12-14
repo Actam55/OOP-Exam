@@ -34,13 +34,13 @@ namespace OOP_Exam.Models
         {
             get
             {
-                return User;
+                return _user;
             }
             set
             {
                 if (value == null)
                 {
-                    throw new NoUserForTransactionException();
+                    throw new NoUserForTransactionException("Cannot set user to Null for a transaction");
                 }
                 _user = value;
             }

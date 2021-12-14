@@ -24,7 +24,6 @@ namespace OOP_Exam.Commands
         {
             User user = _tallySystem.GetUserByUsername(_commands[1]);
             user.Balance += Convert.ToInt32(_commands[2]);
-            _ui.DisplayUI();
         }
     }
 }
